@@ -4,18 +4,26 @@
   border: none;
   outline: 0;
   text-decoration: none;
-  color: white;
+  /* do not force a global color here — set colors on body/typography instead */
 }
 
-body {
-  background-color: rgb(6, 7, 12);
-  font-family: inter;
-  background-image: url(background-img.jpg);
-  background-repeat: no-repeat;
+html {
+  /* make the background cover the whole document (full-bleed) */
+  background-image: url('background-img.jpg');
   background-position: center;
-  background-size: cover;
-  height: 100vh;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: 100%; /* animatable percentage */
+  min-height: 100vh;
+  animation: backgroundZoom 3s ease-in forwards;
+}
+ 
+body {
+  background: transparent; /* keep page content area padded, background is on html now */
+  font-family: 'Inter', sans-serif;
+  min-height: 100vh; /* allows page to grow beyond one viewport */
   padding: 0 10%;
+  color: #e6eef8; /* softer off-white for general text */
 }
 
 /* Header */
@@ -56,13 +64,14 @@ nav .active {
 /* Hero-section */
 #hero {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr; /* single column: remove the right "big screen" area */
+  gap: 40px;
 }
 /* Left */
 .hero-left {
   display: flex;
-  align-items: center;
-  padding-top: 150px;
+  align-items: flex-start;
+  padding-top: 40px; /* reduced from 120px to remove extra space above the photo */
   z-index: 1;
 }
 
@@ -70,20 +79,25 @@ h1{
   font-size: 4rem;
   font-weight: 800;
   padding: 25px 0;
+  color: #000000; /* changed to black as requested */
+  text-shadow: 0 6px 18px rgba(2, 6, 23, 0.28); /* you can remove this if the shadow makes black look off */
 }
 
 h3 {
   font-size: 2.3rem;
   font-weight: 800;
-  color: #3FA2F6;
-  padding-bottom: 40px;
+  color: #FF6A00; /* dark orange for "A Biotech Researcher" */
+  padding-bottom: 12px; /* reduced spacing */
+  text-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 p {
   font-size: 1.2rem;
-  color: lightgray;
-  line-height: 1.5;
+  color: #2b2b2b; /* more readable, neutral charcoal */
+  line-height: 1.6;
   padding-bottom: 50px;
+  text-shadow: 0 2px 6px rgba(2, 6, 23, 0.12);
+  font-weight: 600;
 }
 
 /* button */
@@ -91,14 +105,14 @@ p {
   color: black;
   font-size: 1.2rem;
   font-weight: 600;
-  padding: 15px 0;
+  padding: 12px 0;
   width: 200px;
-  border:none;
+  border: none;
   border-radius: 8px;
-  margin-right: 50px;
+  margin-right: 20px;
   background-color: #3FA2F6;
-  margin-bottom: 180px;
-  transition: background-color 0.12s, border 0.12s, color 0.21s, padding 0.12s;
+  margin-bottom: 20px;
+  transition: background-color 0.12s, border 0.12s, color 0.12s, padding 0.12s;
 }
 
 .cta .cta-1:hover {
@@ -121,50 +135,99 @@ p {
 }
 
 /* Icons */
+/* image-based social icons (right) */
 .social-icon {
+  position: fixed;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 999;
+  background: transparent;
+  padding: 4px;
+  pointer-events: auto;
+}
+
+.social-icon .social-link {
+  display: inline-flex;
   align-items: center;
-  gap: 25px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: transparent;
+  text-decoration: none;
+  transition: transform .12s ease, opacity .12s;
 }
 
-.social-icon{
-  padding-bottom: 50px;
+.social-icon .social-link img {
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+  filter: none;
 }
 
-.social-icon i {
-font-size: 1.2rem;
-color: #3FA2F6;
-border: 1px solid #3FA2F6;
-border-radius: 50px;
-padding: 8px;
-height: 25px;
-width: 25px;
-display: flex;
-align-items: center;
-justify-content: center;
-transition: transform 0.12s, box-shadow 0.12s;
-cursor: pointer;
-
+/* hover */
+.social-icon .social-link:hover {
+  transform: translateX(-6px) scale(1.03);
+  opacity: 0.95;
 }
 
-.social-icon i:hover {
-  transform: scale(1.1);
-  text-shadow: 0 0 10px #3FA2F6;
+/* ensure a fixed order top → bottom regardless of layout changes */
+.social-icon { display:flex; flex-direction:column; }
+.social-icon .social-link.linkedin  { order: 1; }
+.social-icon .social-link.facebook  { order: 2; }
+.social-icon .social-link.instagram { order: 3; }
+.social-icon .social-link.twitter   { order: 4; }
+.social-icon .social-link.whatsapp  { order: 5; }
+
+/* responsive: move to bottom row on small screens */
+@media (max-width: 640px) {
+  .social-icon {
+    right: 12px;
+    top: auto;
+    bottom: 12px;
+    transform: none;
+    flex-direction: row;
+    gap: 8px;
+  }
+  .social-icon .social-link { width: 36px; height: 36px; }
+  .social-icon .social-link img { width: 22px; height: 22px; }
+  .social-icon .social-link { order: 0; } /* optional: preserve visual order left→right */
+  /* if you want the same sequence left→right, set orders explicitly for row too */
+  .social-icon .social-link.linkedin  { order: 1; }
+  .social-icon .social-link.facebook  { order: 2; }
+  .social-icon .social-link.instagram { order: 3; }
+  .social-icon .social-link.twitter   { order: 4; }
+  .social-icon .social-link.whatsapp  { order: 5; }
 }
 
-/* Right section */
-
-.hero-right {
-  transition: background-color 3s, box-shadow 3s;
-  cursor: pointer;
+/* Quick Links */
+.quick-links {
+  display: flex;
+  gap: 12px;
+  flex-wrap: nowrap;            /* keep all topics on a single line */
+  align-items: center;
+  overflow-x: auto;             /* allow horizontal scroll if viewport is narrow */
+  white-space: nowrap;
+  -webkit-overflow-scrolling: touch;
+  margin: 10px 0;
+  padding-bottom: 6px;
 }
-.hero-right:hover {
-  background-color: rgba(6, 7, 12, 0.705);
-  box-shadow: 
-    0 0 20px rgb(6, 7, 12),
-    0 0 50px rgb(6, 7, 12),
-    0 0 100px rgb(6, 7, 12),
-    0 0 200px rgb(6, 7, 12);
+
+/* ensure each item doesn't wrap and stays inline */
+.quick-links .nav-item {
+  white-space: nowrap;
+  flex: 0 0 auto;
+}
+
+/* small responsive tweaks */
+@media (max-width: 640px) {
+  .quick-links { gap: 10px; margin: 8px 0; }
+  .quick-links .nav-item { padding: 6px 10px; font-size: 0.95rem; }
 }
 
 /* Animations */
@@ -191,17 +254,10 @@ cursor: pointer;
 }
 
 @keyframes backgroundZoom {
-  from{
-    background-size: 80%;
-  }
-  to{
-    background-size: 100%;
-  }
+  from { background-size: 120%; }
+  to   { background-size: 100%; }
 }
-
-
-
-
+ 
 /* Apply Animations */
 h1 {
   animation: fadeIn 1.2s ease-out forwards;
@@ -215,7 +271,7 @@ h3 {
   animation-delay: 0.4s;
 }
 
-p {
+.intro, p:not(.intro) {
   animation: fadeIn 1.6s ease-out forwards;
   opacity: 0;
   animation-delay: 0.6s;
@@ -248,4 +304,35 @@ body {
   object-fit: cover;
   margin-bottom: 20px; /* space between image and text */
 }
+
+/* paragraph / intro alignment */
+.intro {
+  max-width: 68ch;
+  margin: 0;
+  margin-top: 6px; /* small gap under h3 */
+  text-align: justify;
+  text-align-last: left;
+  hyphens: none;
+  -webkit-hyphens: none;
+  -ms-hyphens: none;
+  word-break: normal;
+  overflow-wrap: normal;
+  white-space: normal;
+  line-height: 1.7;        /* slightly increased for readability with new size */
+  color: #2b2b2b;
+  font-size: 1.15rem;      /* reduced a bit from 1.25rem, still larger than original */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  font-weight: 600; /* make the intro paragraph bold */
+}
+
+/* ensure other paragraph text is bold where needed */
+p {
+  font-weight: 600;
+}
+
+/* headings already bold, keep their weight */
+h1 { font-weight: 800; }
+h3 { font-weight: 800; }
 
