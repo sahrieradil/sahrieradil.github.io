@@ -10,7 +10,7 @@
 body {
   background-color: rgb(6, 7, 12);
   font-family: inter;
-  background-image: url(background-img.png);
+  background-image: url(background-img.jpg);
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
@@ -248,3 +248,4 @@ body {
   object-fit: cover;
   margin-bottom: 20px; /* space between image and text */
 }
+
