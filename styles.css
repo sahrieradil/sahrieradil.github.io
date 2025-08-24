@@ -241,3 +241,10 @@ button {
 body {
   animation: backgroundZoom 3s ease-in forwards;
 }
+.profile-pic {
+  width: 150px; /* adjust size */
+  height: 150px; /* adjust size */
+  border-radius: 50%; /* makes it circular */
+  object-fit: cover;
+  margin-bottom: 20px; /* space between image and text */
+}
