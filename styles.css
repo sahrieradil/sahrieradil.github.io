@@ -114,6 +114,7 @@ h3 {
   display: flex;              /* Horizontal row */
   gap: 12px;                  /* Space between buttons */
   flex-wrap: wrap;            /* Allow wrapping on small screens */
+  margin-top: 60px;    /* 👈 Pushes the tab row lower */
   margin-bottom: 8px;         /* Space below tabs */
 }
 
@@ -187,25 +188,32 @@ h3 {
 /* ======= SOCIAL ICONS (right side floating) ======= */
 
 .social-icon {
-  position: fixed;                            /* Sticks to screen, not page */
-  right: 10px;                                /* 10px from right */
-  top: 50%;                                   /* Vertically center */
-  transform: translateY(-50%);                /* Adjust to exact middle */
-  display: flex;                              /* Vertical column */
-  flex-direction: column;
-  gap: 12px;                                  /* Space between icons */
-  z-index: 10;                                /* Ensure above content */
+  position: fixed;       /* Sticks to screen */
+  bottom: 20px;          /* At bottom */
+  right: 20px;           /* 20px from right */
+  display: flex;         /* Row of icons */
+  flex-direction: row;   /* Horizontal instead of vertical */
+  gap: 12px;             /* Space between icons */
+  z-index: 10;           /* On top of content */
+}
+
+/* Fade-in animation for icons */
+@keyframes fadeIcons {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* Each social icon button */
-.social-link {
-  width: 44px; height: 44px;                  /* Square size */
-  display: grid; place-items: center;         /* Centers image */
-  border-radius: 50%;                         /* Circle shape */
-  transition: transform .12s ease, opacity .12s ease; /* Smooth hover */
-  background: rgba(255,255,255,.6);           /* Transparent white */
-  backdrop-filter: blur(4px);                 /* Glass effect */
+.social-icon {
+  position: fixed;        /* Sticks to screen */
+  bottom: 20px;           /* Always at bottom */
+  right: 20px;            /* 20px from right edge */
+  display: flex;          /* Flex container */
+  flex-direction: column; /* 👈 Vertical layout */
+  gap: 12px;              /* Space between icons */
+  z-index: 10;            /* Stay above everything */
 }
+
 
 /* Hover effect for social icon */
 .social-link:hover { 
@@ -218,6 +226,30 @@ h3 {
   width: 26px; height: 26px;                  /* Icon size */
   object-fit: contain;                        /* Fit properly inside */
 }
+/* Animation for social icons */
+@keyframes iconFadeUp {
+  from {
+    opacity: 0;           /* Invisible */
+    transform: translateY(20px); /* Start slightly lower */
+  }
+  to {
+    opacity: 1;           /* Fully visible */
+    transform: translateY(0);   /* Normal position */
+  }
+}
+
+/* Apply animation to each social icon */
+.social-icon .social-link {
+  opacity: 0;                   /* Start hidden */
+  animation: iconFadeUp 0.6s ease forwards;
+}
+
+/* Delay each icon slightly for staggered effect */
+.social-icon .social-link:nth-child(1) { animation-delay: 0.2s; }
+.social-icon .social-link:nth-child(2) { animation-delay: 0.4s; }
+.social-icon .social-link:nth-child(3) { animation-delay: 0.6s; }
+.social-icon .social-link:nth-child(4) { animation-delay: 0.8s; }
+.social-icon .social-link:nth-child(5) { animation-delay: 1s; }
 
 /* ======= ANIMATIONS ======= */
 

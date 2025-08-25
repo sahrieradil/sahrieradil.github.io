@@ -80,14 +80,14 @@ function setupTabs() {
     });
 
     // When user hovers over a tab (only if nothing is locked)
-    tab.addEventListener('mouseover', () => { 
-      if (!locked) show(tab);                   // Show the content temporarily
-    });
+   // tab.addEventListener('mouseover', () => { 
+   //   if (!locked) show(tab);                   // Show the content temporarily
+   // });
 
     // When user moves mouse away from tab (only if nothing is locked)
-    tab.addEventListener('mouseleave', () => { 
-      if (!locked) hideAll();                   // Hide again
-    });
+   // tab.addEventListener('mouseleave', () => { 
+   //   if (!locked) hideAll();                   // Hide again
+   // });
 
     // When user clicks on a tab
     tab.addEventListener('click', e => {
@@ -136,11 +136,3 @@ function setupCTAs() {
     });
   }
 }
-// ============================================================
-// GLOBAL ERROR HANDLER
-// - Logs errors in the browser console for debugging.
-// - Useful during development.
-// ============================================================
-window.addEventListener('error', (e) => {
-  console.error('JavaScript Error:', e.message);
-});
