@@ -15,36 +15,102 @@
 
 <body>
   <header id="header">
-    <div class="left-section">
-    </div>
+    <div class="left-section"></div>
   </header>
 
   <main>
     <section id="hero">
       <div class="hero-left">
         <div class="content">
-          <img src="your-photo.jpg" alt="Sahrier Adil" class="profile-pic">
+          <!-- Profile picture moved to hero-right section for layout adjustment -->
           <h1>Hi, I'm Sahrier Adil</h1>
           <h3>A Biotech Researcher</h3>
 
-          <p class="intro">I’m someone who’s really curious about the world of science, especially microbiology, molecular biology and bioinformatics. I enjoy exploring how microbes work, how genes influence life and how technology can help us understand biology better. I’m always excited to learn new things and connect ideas between lab work and computational tools.</p>
+          <p class="intro">
+            I’m someone who’s really curious about the world of science, especially microbiology, molecular biology and
+            bioinformatics. I enjoy exploring how microbes work, how genes influence life and how technology can help us
+            understand biology better. I’m always excited to learn new things and connect ideas between lab work and computational tools.
+          </p>
 
           <div class="cta">
             <button class="cta-1">CV</button>
             <button class="cta-2">Contact</button>
           </div>
 
+          <!-- Quick Links (tabs) -->
           <section id="quick-links" class="quick-links" aria-label="Quick links">
-            <a class="nav-item" href="#" data-tab="research-interests">Research Interests</a>
             <a class="nav-item" href="#" data-tab="research-experience">Research Experience</a>
             <a class="nav-item" href="#" data-tab="conferences">Conferences</a>
             <a class="nav-item" href="#" data-tab="projects">Projects</a>
             <a class="nav-item" href="#" data-tab="field-works">Field Works</a>
             <a class="nav-item" href="#" data-tab="education">Education</a>
             <a class="nav-item" href="#" data-tab="beyond-academics">Beyond Academics</a>
-            <a class="nav-item" href="#" data-tab="references">References</a>
           </section>
 
+          <!-- Tab panes -->
+          <div class="tab-content" id="tab-content" role="region" aria-live="polite">
+            <div id="research-experience" class="tab-pane" role="tabpanel" aria-labelledby="tab-research-experience">
+              <h2>Research Experience</h2>
+              <ul>
+                <li>Isolation & characterization of enzyme-producing <i>Aspergillus</i> from agro-residues</li>
+                <li>Solid-state vs submerged fermentation for amylase production</li>
+                <li>Metagenomic analysis of antibiotic resistance genes (ARGs)</li>
+                <li>Expression & purification of recombinant proteins in <i>E. coli</i></li>
+              </ul>
+            </div>
+
+            <div id="conferences" class="tab-pane" role="tabpanel" aria-labelledby="tab-conferences">
+              <h2>Conferences</h2>
+              <ul>
+                <li>Advances in Microbial Biotechnology — Poster on hydrolase production</li>
+                <li>Genomics & Bioinformatics Summit — Talk on metagenome mining</li>
+                <li>International Molecular Biology Congress — CRISPR/Gene editing sessions</li>
+                <li>Industrial Biotech for Agriculture — Enzymes in waste valorization panel</li>
+              </ul>
+            </div>
+
+            <div id="projects" class="tab-pane" role="tabpanel" aria-labelledby="tab-projects">
+              <h2>Projects</h2>
+              <ul>
+                <li>Designer cellulosomes for enhanced cellulose degradation</li>
+                <li>SA-mediated salt/cadmium stress tolerance in rice</li>
+                <li>Discovery of novel hydrolases from polluted-site metagenomes</li>
+                <li>Genetic markers for lowering enteric methane in cattle</li>
+              </ul>
+            </div>
+
+            <div id="field-works" class="tab-pane" role="tabpanel" aria-labelledby="tab-field-works">
+              <h2>Field Works</h2>
+              <ul>
+                <li>Soil sampling for filamentous fungi from rice fields</li>
+                <li>Collection of rice husk & bagasse for SSF substrates</li>
+                <li>Urban vs rural water microbiome survey</li>
+                <li>Microbial diversity profiling in poultry/livestock farms</li>
+              </ul>
+            </div>
+
+            <div id="education" class="tab-pane" role="tabpanel" aria-labelledby="tab-education">
+              <h2>Education</h2>
+              <ul>
+                <li>B.Sc. in Genetic Engineering & Biotechnology (4th year)</li>
+                <li>Coursework: Molecular Biology, Biochemistry, Bioinformatics, Industrial Microbiology</li>
+                <li>Lab: Enzyme assays, PCR, gel electrophoresis, fermentation</li>
+                <li>Computational: R (phyloseq, ggplot2), Python (pandas, Biopython)</li>
+              </ul>
+            </div>
+
+            <div id="beyond-academics" class="tab-pane" role="tabpanel" aria-labelledby="tab-beyond-academics">
+              <h2>Beyond Academics</h2>
+              <ul>
+                <li>Science communication workshops & outreach</li>
+                <li>Organized campus biotechnology seminar series</li>
+                <li>Bioinformatics hackathons & tool prototyping</li>
+                <li>Science blogging on genetics & microbiology</li>
+              </ul>
+            </div>
+          </div>
+
+          <!-- Social Icons -->
           <div class="social-icon" aria-label="Social links">
             <a class="social-link linkedin" href="#" title="LinkedIn">
               <img src="assets/icons/linkedin.png" alt="LinkedIn">
@@ -62,14 +128,15 @@
               <img src="assets/icons/whatsapp.png" alt="WhatsApp">
             </a>
           </div>
-
         </div>
+      </div>
+      <!-- Profile picture moved to hero-right section and styled in styles.css -->
+      <div class="hero-right">
+        <img src="your-photo.jpg" alt="Sahrier Adil" class="profile-pic">
       </div>
     </section>
   </main>
 
   <script src="script.js"></script>
 </body>
-
 </html>
-

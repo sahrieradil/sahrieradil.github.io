@@ -1,41 +1,57 @@
-// Make script robust and wait for DOM
 document.addEventListener('DOMContentLoaded', () => {
-  const tabs = document.querySelectorAll('.nav-item');
+  const tabs = document.querySelectorAll('#quick-links .nav-item');
   const panes = document.querySelectorAll('.tab-pane');
+  const tabContent = document.querySelector('.tab-content');
 
-  if (!tabs || tabs.length === 0) return;
+  if (tabs.length === 0 || panes.length === 0 || !tabContent) return;
 
-  // Map each tab to a direction (used only if you add .tab-pane elements)
-  const directions = {
-    home: 'slide-up',
-    services: 'slide-left',
-    projects: 'slide-right',
-    about: 'slide-left',
-    contact: 'slide-right'
-  };
+  let lockedTab = null; // currently settled tab
 
-  // Always allow nav items to toggle "active" visually.
+  // helper: show a pane
+  function showPane(tab) {
+    const paneId = tab.dataset.tab;
+    if (!paneId) return;
+
+    tabs.forEach(t => t.classList.remove('active'));
+    tab.classList.add('active');
+
+    panes.forEach(p => p.classList.remove('active'));
+    const pane = document.getElementById(paneId);
+    if (pane) pane.classList.add('active');
+
+    tabContent.classList.add('active'); // reveal container
+  }
+
+  // helper: hide all
+  function hideAll() {
+    tabs.forEach(t => t.classList.remove('active'));
+    panes.forEach(p => p.classList.remove('active'));
+    tabContent.classList.remove('active'); // hide container
+  }
+
+  // hover to preview
   tabs.forEach(tab => {
-    // use mouseover for hover visual; you can add click if needed
     tab.addEventListener('mouseover', () => {
-      // Remove active from all nav items
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      // If panes exist and this tab has a data-tab -> toggle pane classes safely
-      const paneId = tab.dataset.tab;
-      if (!paneId || panes.length === 0) return;
-
-      panes.forEach(p => p.classList.remove('active', 'slide-left', 'slide-right', 'slide-up'));
-      const pane = document.getElementById(paneId);
-      if (pane) pane.classList.add('active', directions[paneId] || 'slide-up');
+      if (lockedTab !== tab) showPane(tab);
     });
 
-    // also support keyboard/click for accessibility
+    tab.addEventListener('mouseleave', () => {
+      if (!lockedTab) hideAll();
+      else showPane(lockedTab);
+    });
+
+    // click to lock/settle or toggle off
     tab.addEventListener('click', (e) => {
       e.preventDefault();
-      tab.focus();
-      tab.dispatchEvent(new Event('mouseover'));
+
+      if (lockedTab === tab) {
+        // 👇 same tab clicked again → collapse
+        lockedTab = null;
+        hideAll();
+      } else {
+        lockedTab = tab;
+        showPane(tab);
+      }
     });
   });
 });

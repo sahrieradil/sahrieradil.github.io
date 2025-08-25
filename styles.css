@@ -4,26 +4,31 @@
   border: none;
   outline: 0;
   text-decoration: none;
-  /* do not force a global color here — set colors on body/typography instead */
+}
+
+:root{
+  --accent: #003366;        /* deep navy (works on white) */
+  --accent-hover: #1E88E5;  /* biotech blue */
+  --text-main: #2b2b2b;
+  --panel: #f8f9fa;
 }
 
 html {
-  /* make the background cover the whole document (full-bleed) */
   background-image: url('background-img.jpg');
   background-position: center;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-size: 100%; /* animatable percentage */
+  background-size: 100%;
   min-height: 100vh;
   animation: backgroundZoom 3s ease-in forwards;
 }
- 
+
 body {
-  background: transparent; /* keep page content area padded, background is on html now */
+  background: transparent;
   font-family: 'Inter', sans-serif;
-  min-height: 100vh; /* allows page to grow beyond one viewport */
-  padding: 0 10%;
-  color: #e6eef8; /* softer off-white for general text */
+  min-height: 100vh;
+  padding: 0 0 0 10%;
+  color: #e6eef8;
 }
 
 /* Header */
@@ -36,109 +41,99 @@ body {
   z-index: 1;
 }
 
+/* General nav-item base (kept lightweight; quick-links overrides below) */
 .nav-item {
-  font-size: 1.2rem;
-  font-weight: 500;
-  margin-left: 60px;
+  font-size: 1.1rem;
+  font-weight: 600;
   transition: color 0.12s, transform 0.12s;
 }
+.nav-item:active { transform: scale(1.04); }
 
-nav .active {
-  color: #3FA2F6;
-}
+/* Hero */
+/* Modified to create a two-column layout for hero section */
+#hero { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
 
-.nav-item:hover {
-  color: #3FA2F6;
-}
-
-.nav-item:active {
-  transform: scale(1.1);
-}
-
-/* logo */
-.logo {
-  font-size: 2rem;
-  font-weight: 800;
-}
-
-/* Hero-section */
-#hero {
-  display: grid;
-  grid-template-columns: 1fr; /* single column: remove the right "big screen" area */
-  gap: 40px;
-}
-/* Left */
 .hero-left {
   display: flex;
-  align-items: flex-start;
-  padding-top: 40px; /* reduced from 120px to remove extra space above the photo */
+  align-items: center;
+  justify-content: center; /* Centered content within the left column */
+  padding-top: 0px; /* Adjusted to move the profile picture slightly up */
   z-index: 1;
 }
 
-h1{
-  font-size: 4rem;
+.hero-right {
+  display: flex;
+  justify-content: center; /* Aligned content to the center of its grid column to bring it more to the left */
+  align-items: flex-start; /* Aligned content to the top of its grid cell */
+  /* Removed padding-top as vertical alignment is now controlled by align-items and margin-top on the image */
+  z-index: 1;
+}
+
+
+h1 {
+  font-size: 3.2rem;
   font-weight: 800;
-  padding: 25px 0;
-  color: #000000; /* changed to black as requested */
-  text-shadow: 0 6px 18px rgba(2, 6, 23, 0.28); /* you can remove this if the shadow makes black look off */
+  padding: 20px 0 8px 0;
+  color: #000;
+  text-shadow: 0 6px 18px rgba(2, 6, 23, 0.18);
 }
 
 h3 {
-  font-size: 2.3rem;
+  font-size: 2rem;
   font-weight: 800;
-  color: #FF6A00; /* dark orange for "A Biotech Researcher" */
-  padding-bottom: 12px; /* reduced spacing */
+  color: #FF6A00;
+  padding-bottom: 8px;
   text-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
 }
 
 p {
-  font-size: 1.2rem;
-  color: #2b2b2b; /* more readable, neutral charcoal */
-  line-height: 1.6;
-  padding-bottom: 50px;
-  text-shadow: 0 2px 6px rgba(2, 6, 23, 0.12);
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.7;
+  padding-bottom: 32px;
+  text-shadow: 0 2px 6px rgba(2, 6, 23, 0.06);
   font-weight: 600;
 }
 
-/* button */
+.intro {
+  font-size: 1.05rem;
+  color: var(--text-main);
+  line-height: 1.5;            
+  padding-bottom: 20px;
+  text-align: justify;         /* 👈 lines aligned left & right */
+  text-justify: inter-word;    /* 👈 distributes spaces evenly */
+  max-width: 720px;            /* 👈 keep readable width */
+  margin: 0;              /* 👈 center block */
+  font-weight: 500;
+}
+
+/* CTA buttons */
 .cta button {
-  color: black;
-  font-size: 1.2rem;
-  font-weight: 600;
+  color: #000;
+  font-size: 1.05rem;
+  font-weight: 700;
   padding: 12px 0;
   width: 200px;
   border: none;
-  border-radius: 8px;
-  margin-right: 20px;
-  background-color: #3FA2F6;
-  margin-bottom: 20px;
-  transition: background-color 0.12s, border 0.12s, color 0.12s, padding 0.12s;
+  border-radius: 10px;
+  margin-right: 16px;
+  background-color: var(--accent-hover);
+  margin-bottom: 40px;
+  transition: background-color 0.15s, border 0.15s, color 0.15s, padding 0.15s;
 }
-
 .cta .cta-1:hover {
   background-color: transparent;
-  color: #3FA2F6;
-  border: 2px solid #3FA2F6;
+  color: var(--accent-hover);
+  border: 2px solid var(--accent-hover);
   padding: 13px 0;
 }
+.cta .cta-2 { background: transparent; color: var(--accent-hover); border: 2px solid var(--accent-hover); padding: 13px 0; }
+.cta .cta-2:hover { background: var(--accent-hover); color: #000; }
 
-.cta .cta-2:hover {
-  background-color: #3fa1f6;
-  color: #000000;
-}
-
-.cta .cta-2 {
-  background-color: transparent;
-  color: #3FA2F6;
-  border: 2px solid #3FA2F6;
-  padding: 13px 0;
-}
-
-/* Icons */
-/* image-based social icons (right) */
+/* Social icons */
 .social-icon {
   position: fixed;
-  right: 16px;
+  right: 0;
   top: 50%;
   transform: translateY(-50%);
   display: flex;
@@ -147,192 +142,100 @@ p {
   z-index: 999;
   background: transparent;
   padding: 4px;
-  pointer-events: auto;
 }
+.social-icon .social-link { display:flex; align-items:center; justify-content:center; width:44px; height:44px; border-radius:50%; transition: transform .12s ease, opacity .12s; }
+.social-icon .social-link img { width: 26px; height: 26px; object-fit: contain; display:block; }
+.social-icon .social-link:hover { transform: translateX(-6px) scale(1.03); opacity: 0.95; }
 
-.social-icon .social-link {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  background: transparent;
-  text-decoration: none;
-  transition: transform .12s ease, opacity .12s;
-}
-
-.social-icon .social-link img {
-  width: 26px;
-  height: 26px;
-  object-fit: contain;
-  display: block;
-  filter: none;
-}
-
-/* hover */
-.social-icon .social-link:hover {
-  transform: translateX(-6px) scale(1.03);
-  opacity: 0.95;
-}
-
-/* ensure a fixed order top → bottom regardless of layout changes */
-.social-icon { display:flex; flex-direction:column; }
-.social-icon .social-link.linkedin  { order: 1; }
-.social-icon .social-link.facebook  { order: 2; }
-.social-icon .social-link.instagram { order: 3; }
-.social-icon .social-link.twitter   { order: 4; }
-.social-icon .social-link.whatsapp  { order: 5; }
-
-/* responsive: move to bottom row on small screens */
 @media (max-width: 640px) {
-  .social-icon {
-    right: 12px;
-    top: auto;
-    bottom: 12px;
-    transform: none;
-    flex-direction: row;
-    gap: 8px;
-  }
-  .social-icon .social-link { width: 36px; height: 36px; }
-  .social-icon .social-link img { width: 22px; height: 22px; }
-  .social-icon .social-link { order: 0; } /* optional: preserve visual order left→right */
-  /* if you want the same sequence left→right, set orders explicitly for row too */
-  .social-icon .social-link.linkedin  { order: 1; }
-  .social-icon .social-link.facebook  { order: 2; }
-  .social-icon .social-link.instagram { order: 3; }
-  .social-icon .social-link.twitter   { order: 4; }
-  .social-icon .social-link.whatsapp  { order: 5; }
+  .social-icon { right:12px; top:auto; bottom:12px; transform:none; flex-direction:row; gap:8px; }
+  .social-icon .social-link { width:36px; height:36px; }
+  .social-icon .social-link img { width:22px; height:22px; }
 }
 
-/* Quick Links */
+/* ✅ Quick Links: NO horizontal scroll, nice pills for white bg */
 .quick-links {
   display: flex;
+  flex-wrap: nowrap; /* Changed to display tabs in a single line */
   gap: 12px;
-  flex-wrap: nowrap;            /* keep all topics on a single line */
-  align-items: center;
-  overflow-x: auto;             /* allow horizontal scroll if viewport is narrow */
-  white-space: nowrap;
-  -webkit-overflow-scrolling: touch;
-  margin: 10px 0;
-  padding-bottom: 6px;
+  /* Removed justify-content: center; to allow natural flow */
+  overflow-x: auto; /* Added for horizontal scrolling if tabs exceed width */
+  margin: 12px 0 0;
+  padding: 8px 0 0;
+  margin-bottom: 40px;   /* 👈 this adds permanent space */
 }
-
-/* ensure each item doesn't wrap and stays inline */
 .quick-links .nav-item {
+  padding: 10px 18px;
+  border-radius: 999px;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+  color: #fff;
+  font-size: 0.98rem;
+  font-weight: 700;
+  letter-spacing: .2px;
+  transition: all .22s ease;
   white-space: nowrap;
-  flex: 0 0 auto;
+}
+.quick-links .nav-item:hover { background: var(--accent-hover); border-color: var(--accent-hover); box-shadow: 0 4px 12px rgba(30,136,229,.35); transform: translateY(-2px); }
+.quick-links .nav-item.active { background: var(--accent-hover); border-color: var(--accent-hover); }
+
+/* ✅ Tab content */
+.tab-content {
+  visibility: hidden; /* Changed from display: none to prevent layout shifts */
+  margin-top: 18px;
+  margin-bottom: 40px;   /* 👈 adds space below */
+  padding: 20px 22px;
+  min-height: 200px; /* Added to prevent layout shifts when tabs open/close */
+  background: var(--panel);
+  border-radius: 14px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.08);
 }
 
-/* small responsive tweaks */
-@media (max-width: 640px) {
-  .quick-links { gap: 10px; margin: 8px 0; }
-  .quick-links .nav-item { padding: 6px 10px; font-size: 0.95rem; }
+.tab-content.active {
+  visibility: visible;             /* show when active */
 }
+
+.tab-pane {
+  visibility: hidden; /* Changed from display: none to prevent layout shifts */
+  animation: fadeIn .45s ease-out both;
+}
+
+.tab-pane.active {
+  visibility: visible;
+}
+
+.tab-pane h2 {
+  font-size: 1.4rem;
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-weight: 800;
+}
+
+.tab-pane ul { list-style: disc; padding-left: 20px; color: var(--text-main); line-height: 1.7; }
 
 /* Animations */
-@keyframes fadeIn {
-  from{
-    transform: translateY(40px);
-    opacity: 0;
-  }
-  to{
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+@keyframes fadeIn { from{ transform: translateY(8px); opacity: 0; } to{ transform: none; opacity: 1; } }
+@keyframes fadeInTop { from{ transform: translateY(-100%); opacity: 0; } to{ transform: none; opacity: 1; } }
+@keyframes backgroundZoom { from { background-size: 120%; } to { background-size: 100%; } }
 
-@keyframes fadeInTop {
-  from{
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to{
-    transform: translateY(0);
-    opacity: 1;
-  }
-}
+h1 { animation: fadeIn 1.2s ease-out both; }
+h3 { animation: fadeIn 1.3s ease-out both; }
+.intro { animation: fadeIn 1.4s ease-out both; }
+button { animation: fadeIn 1.5s ease-out both; }
+.social-icon { animation: fadeIn 1.6s ease-out both; }
+.nav-item, .left-section { animation: fadeInTop 0.9s ease-in both; }
 
-@keyframes backgroundZoom {
-  from { background-size: 120%; }
-  to   { background-size: 100%; }
-}
- 
-/* Apply Animations */
-h1 {
-  animation: fadeIn 1.2s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.2s;
-}
-
-h3 {
-  animation: fadeIn 1.4s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.4s;
-}
-
-.intro, p:not(.intro) {
-  animation: fadeIn 1.6s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.6s;
-}
-button {
-  animation: fadeIn 1.8s ease-out forwards;
-  opacity: 0;
-  animation-delay: 0.8s;
-}
-
-.social-icon {
-  animation: fadeIn 2s ease-out forwards;
-  opacity: 0;
-  animation-delay: 1s;
-}
-
-.nav-item,
-.left-section {
-  animation: fadeInTop 1s ease-in forwards;
-  opacity: 0;
-}
-
-body {
-  animation: backgroundZoom 3s ease-in forwards;
-}
 .profile-pic {
-  width: 150px; /* adjust size */
-  height: 150px; /* adjust size */
-  border-radius: 50%; /* makes it circular */
+  width: 300px; /* Increased size of the profile picture */
+  height: 300px; /* Increased size of the profile picture */
+  border-radius: 50%;
   object-fit: cover;
-  margin-bottom: 20px; /* space between image and text */
+  margin-bottom: 2px;
+  margin-top: 0px; /* Reset margin-top after changing align-items in .hero-right */
+  transform: scaleX(-1); /* Flipped the image horizontally to face the other side */
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  z-index: 10; /* Ensure profile picture is above other elements */
 }
 
-/* paragraph / intro alignment */
-.intro {
-  max-width: 68ch;
-  margin: 0;
-  margin-top: 6px; /* small gap under h3 */
-  text-align: justify;
-  text-align-last: left;
-  hyphens: none;
-  -webkit-hyphens: none;
-  -ms-hyphens: none;
-  word-break: normal;
-  overflow-wrap: normal;
-  white-space: normal;
-  line-height: 1.7;        /* slightly increased for readability with new size */
-  color: #2b2b2b;
-  font-size: 1.15rem;      /* reduced a bit from 1.25rem, still larger than original */
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-
-  font-weight: 600; /* make the intro paragraph bold */
-}
-
-/* ensure other paragraph text is bold where needed */
-p {
-  font-weight: 600;
-}
-
-/* headings already bold, keep their weight */
-h1 { font-weight: 800; }
-h3 { font-weight: 800; }
-
+/* Remove ANY legacy horizontal scroll styles that might linger */
+.quick-links::-webkit-scrollbar { display: none; }
