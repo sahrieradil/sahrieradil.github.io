@@ -1,140 +1,146 @@
+// ============================================================
+// ENTRY POINT
+// - When the page (DOM) finishes loading, run setup functions.
+// ============================================================
 document.addEventListener('DOMContentLoaded', () => {
-  // Initialize tab system
-  initTabSystem();
-  
-  // Add click handlers for CTA buttons
-  initCTAButtons();
+  setupTabs();  // Call function that handles tab functionality
+  setupCTAs();  // Call function that handles CV/Contact buttons
 });
+/**
+ * setupTabs()
+ * Handles the behavior of the tab navigation:
+ *  - Shows a content panel when a tab is clicked or hovered.
+ *  - Clicking the active tab again hides the panel.
+ *  - Uses ARIA attributes for accessibility (screen readers).
+ */
+function setupTabs() {
+  // Get the nav container that holds all the tab buttons
+  const tabList   = document.getElementById('quick-links');
 
-function initTabSystem() {
-  const tabs = document.querySelectorAll('#quick-links .nav-item');
-  const panes = document.querySelectorAll('.tab-pane');
-  const tabContent = document.querySelector('.tab-content');
+  // Get all tab buttons inside the nav container
+  const tabs      = tabList ? tabList.querySelectorAll('.nav-item[role="tab"]') : [];
 
-  // Early return if elements don't exist
-  if (tabs.length === 0 || panes.length === 0 || !tabContent) {
-    console.warn('Tab system elements not found');
-    return;
-  }
+  // Get the container that holds all tab panels
+  const container = document.getElementById('tab-content');
 
-  let lockedTab = null;
+  // Get all the individual tab content panels inside the container
+  const panes     = container ? container.querySelectorAll('.tab-pane') : [];
 
-  // Helper: Show a specific pane
-  function showPane(tab) {
-    const paneId = tab.dataset.tab;
-    if (!paneId) return;
+  // If the elements don't exist (safety check), stop running the function
+  if (!tabList || !container || tabs.length === 0 || panes.length === 0) return;
 
-    // Update tab states
-    tabs.forEach(t => t.classList.remove('active'));
+  // "locked" keeps track of the currently active tab
+  // null means no tab is active (collapsed)
+  let locked = null;
+
+  // Utility function: hides all tabs and all panes
+  const hideAll = () => {
+    tabs.forEach(t => { 
+      t.classList.remove('active');            // Remove active class from all tabs
+      t.setAttribute('aria-selected', 'false'); // Mark tab as not selected (accessibility)
+    });
+    panes.forEach(p => { 
+      p.hidden = true;                         // Hide every content pane
+    });
+    container.classList.remove('active');      // Hide the tab content box
+  };
+
+  // Utility function: shows a specific tab + its content pane
+  const show = (tab) => {
+    const id = tab.dataset.tab;                // Get the target panel ID from data-tab attribute
+    const pane = id ? document.getElementById(id) : null; // Find the panel with that ID
+    if (!pane) return;                         // If no matching panel, stop
+
+    // Reset all tabs and panels
+    tabs.forEach(t => { 
+      t.classList.remove('active'); 
+      t.setAttribute('aria-selected', 'false'); 
+    });
+    panes.forEach(p => { 
+      p.hidden = true; 
+    });
+
+    // Mark the clicked tab as active
     tab.classList.add('active');
-
-    // Update pane states
-    panes.forEach(p => p.classList.remove('active'));
-    const pane = document.getElementById(paneId);
-    if (pane) pane.classList.add('active');
-
-    // Show tab content container
-    tabContent.classList.add('active');
-    
-    // Update ARIA attributes for accessibility
     tab.setAttribute('aria-selected', 'true');
-    pane.setAttribute('aria-hidden', 'false');
-  }
 
-  // Helper: Hide all panes
-  function hideAll() {
-    tabs.forEach(t => {
-      t.classList.remove('active');
-      t.setAttribute('aria-selected', 'false');
-    });
-    
-    panes.forEach(p => {
-      p.classList.remove('active');
-      p.setAttribute('aria-hidden', 'true');
-    });
-    
-    tabContent.classList.remove('active');
-  }
+    // Show the matching panel
+    pane.hidden = false;
+    container.classList.add('active');         // Show the tab content container
+  };
 
-  // Set up tab event listeners
+  // Loop through every tab and add event listeners
   tabs.forEach(tab => {
-    // Set initial ARIA attributes
-    tab.setAttribute('role', 'tab');
-    tab.setAttribute('aria-selected', 'false');
-    tab.setAttribute('aria-controls', tab.dataset.tab);
-    
-    // Hover to preview
-    tab.addEventListener('mouseover', () => {
-      if (lockedTab !== tab) showPane(tab);
+    // Allow Enter or Space key to trigger a tab (keyboard accessibility)
+    tab.addEventListener('keydown', e => {
+      if (e.key === 'Enter' || e.key === ' ') { // If Enter or Space is pressed
+        e.preventDefault();                     // Prevent page scroll
+        tab.click();                            // Simulate a click on the tab
+      }
     });
 
-    tab.addEventListener('mouseleave', () => {
-      if (!lockedTab) hideAll();
-      else showPane(lockedTab);
+    // When user hovers over a tab (only if nothing is locked)
+    tab.addEventListener('mouseover', () => { 
+      if (!locked) show(tab);                   // Show the content temporarily
     });
 
-    // Click to lock/settle or toggle off
-    tab.addEventListener('click', (e) => {
-      e.preventDefault();
+    // When user moves mouse away from tab (only if nothing is locked)
+    tab.addEventListener('mouseleave', () => { 
+      if (!locked) hideAll();                   // Hide again
+    });
 
-      if (lockedTab === tab) {
-        // Same tab clicked again → collapse
-        lockedTab = null;
-        hideAll();
+    // When user clicks on a tab
+    tab.addEventListener('click', e => {
+      e.preventDefault();                       // Prevent link from refreshing page
+      if (locked === tab) {                     // If clicked tab is already active
+        locked = null;                          // Unlock it (collapse mode)
+        hideAll();                              // Hide all content
       } else {
-        lockedTab = tab;
-        showPane(tab);
-      }
-    });
-    
-    // Keyboard navigation support
-    tab.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        tab.click();
+        locked = tab;                           // Lock the clicked tab as active
+        show(tab);                              // Show its content
       }
     });
   });
 
-  // Set initial ARIA attributes for panes
-  panes.forEach(pane => {
-    pane.setAttribute('role', 'tabpanel');
-    pane.setAttribute('aria-hidden', 'true');
-  });
-  
-  tabContent.setAttribute('role', 'tablist');
+  // Initial state: everything hidden until interaction
+  hideAll();
 }
+/**
+ * setupCTAs()
+ * Wires up the two Call-To-Action buttons:
+ *  - "CV" button (could open/download your CV file)
+ *  - "Contact" button (could open email or scroll to contact form)
+ */
+function setupCTAs() {
+  // Find the CV button
+  const cvBtn = document.querySelector('.cta-1');
 
-function initCTAButtons() {
-  const cvButton = document.querySelector('.cta-1');
-  const contactButton = document.querySelector('.cta-2');
-  
-  if (cvButton) {
-    cvButton.addEventListener('click', () => {
-      // Add CV download functionality here
-      console.log('CV button clicked - implement download functionality');
-      // Example: window.open('path/to/cv.pdf', '_blank');
+  // Find the Contact button
+  const contactBtn = document.querySelector('.cta-2');
+
+  // If CV button exists, attach a click handler
+  if (cvBtn) {
+    cvBtn.addEventListener('click', () => {
+      // Example: open your CV PDF in new tab
+      // window.open('cv.pdf', '_blank');
+      console.log('TODO: hook up CV download/open'); // Temporary log
     });
   }
-  
-  if (contactButton) {
-    contactButton.addEventListener('click', () => {
-      // Add contact functionality here
-      console.log('Contact button clicked - implement contact functionality');
-      // Example: scroll to contact section or open contact modal
+
+  // If Contact button exists, attach a click handler
+  if (contactBtn) {
+    contactBtn.addEventListener('click', () => {
+      // Example: open mail client
+      // window.location.href = 'mailto:you@example.com';
+      console.log('TODO: hook up contact action');   // Temporary log
     });
   }
 }
-
-// Add smooth scrolling for better UX
-function smoothScrollTo(element) {
-  element.scrollIntoView({
-    behavior: 'smooth',
-    block: 'start'
-  });
-}
-
-// Error boundary for any potential issues
+// ============================================================
+// GLOBAL ERROR HANDLER
+// - Logs errors in the browser console for debugging.
+// - Useful during development.
+// ============================================================
 window.addEventListener('error', (e) => {
-  console.error('JavaScript Error:', e.error);
+  console.error('JavaScript Error:', e.message);
 });

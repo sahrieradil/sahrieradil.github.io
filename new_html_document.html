@@ -1,0 +1,221 @@
+<!DOCTYPE html> <!-- HTML5 declaration -->
+<html lang="en"> <!-- Page language = English -->
+
+<head>
+  <meta charset="utf-8" /> <!-- Character encoding -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Responsive design -->
+  <title>Sahrier Adil – Biotech Researcher</title> <!-- Title shown in browser tab -->
+
+  <!-- Import Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;800&display=swap" rel="stylesheet" />
+
+  <!-- Inline CSS -->
+  <style>
+    /* Reset browser defaults */
+    * { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }
+
+    /* Theme variables */
+    :root {
+      --accent: #003366;
+      --accent-hover: #1E88E5;
+      --text-main: #2b2b2b;
+      --panel: #f8f9fa;
+    }
+
+    /* Background */
+    html {
+      background: url('background-img.jpg') center/cover no-repeat fixed;
+      min-height: 100%;
+      animation: bgZoom 3s ease-in forwards;
+    }
+
+    /* Body text */
+    body {
+      font-family: 'Inter', sans-serif;
+      color: var(--text-main);
+      background: transparent;
+      padding: 40px 10%;
+    }
+
+    /* HERO layout */
+    #hero { display: flex; flex-direction: column; gap: 30px; }
+    .hero-main { display: flex; align-items: center; justify-content: space-between; gap: 40px; }
+    .hero-left { flex: 1; }
+    .hero-right { flex-shrink: 0; }
+
+    /* Headings */
+    h1 { font-size: 3rem; font-weight: 800; margin-bottom: 10px; text-shadow: 0 6px 18px rgba(2,6,23,.18); }
+    h3 { font-size: 2rem; font-weight: 800; color: #FF6A00; margin-bottom: 18px; text-shadow: 0 4px 10px rgba(0,0,0,.12); }
+
+    /* Intro */
+    .intro { font-size: 1.05rem; line-height: 1.65; margin-bottom: 24px; text-align: justify; max-width: 720px; }
+
+    /* CTA buttons */
+    .cta { margin-bottom: 24px; }
+    .cta button { font-size: 1.05rem; font-weight: 700; padding: 12px 0; width: 180px; border-radius: 10px; cursor: pointer; transition: all .18s ease; border: 2px solid var(--accent-hover); margin-right: 12px; }
+    .cta .cta-1 { background: var(--accent-hover); color: #fff; }
+    .cta .cta-1:hover { background: transparent; color: var(--accent-hover); }
+    .cta .cta-2 { background: transparent; color: var(--accent-hover); }
+    .cta .cta-2:hover { background: var(--accent-hover); color: #fff; }
+
+    /* Tabs */
+    .quick-links { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+    .quick-links .nav-item { padding: 10px 18px; border-radius: 999px; background: var(--accent); border: 2px solid var(--accent); color: #fff; font-size: .98rem; font-weight: 700; white-space: nowrap; transition: all .18s ease; }
+    .quick-links .nav-item:hover, .quick-links .nav-item.active { background: var(--accent-hover); border-color: var(--accent-hover); box-shadow: 0 4px 12px rgba(30,136,229,.35); transform: translateY(-2px); }
+
+    /* Tab content */
+    .tab-content { display: none; margin: 28px 0 0; padding: 20px 22px; min-height: 220px; background: var(--panel); border-radius: 14px; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+    .tab-content.active { display: block; }
+    .tab-pane[hidden] { display: none; }
+    .tab-pane h2 { font-size: 1.3rem; margin-bottom: 12px; color: var(--accent); font-weight: 800; }
+    .tab-pane ul { list-style: disc; padding-left: 20px; line-height: 1.7; }
+
+    /* Profile pic */
+    .profile-pic { width: 300px; height: 300px; border-radius: 50%; object-fit: cover; box-shadow: 0 10px 30px rgba(0,0,0,.20); }
+
+    /* Social icons */
+    .social-icon { position: fixed; right: 10px; top: 50%; transform: translateY(-50%); display: flex; flex-direction: column; gap: 12px; z-index: 10; }
+    .social-link { width: 44px; height: 44px; display: grid; place-items: center; border-radius: 50%; transition: transform .12s ease, opacity .12s ease; background: rgba(255,255,255,.6); backdrop-filter: blur(4px); }
+    .social-link:hover { transform: translateX(-6px) scale(1.03); opacity: .95; }
+    .social-link img { width: 26px; height: 26px; object-fit: contain; }
+
+    /* Animations */
+    @keyframes bgZoom { from { background-size: 120%; } to { background-size: 100%; } }
+    @keyframes fadeIn { from { transform: translateY(8px); opacity: 0; } to { transform: none; opacity: 1; } }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      body { padding: 28px 6%; }
+      .hero-main { flex-direction: column; text-align: center; }
+      .profile-pic { width: 220px; height: 220px; margin-top: 12px; }
+      .social-icon { right: 8px; top: auto; bottom: 12px; transform: none; flex-direction: row; }
+    }
+  </style>
+</head>
+
+<body>
+  <main>
+    <!-- HERO -->
+    <section id="hero">
+      <div class="hero-main">
+        <div class="hero-left">
+          <h1>Hi, I'm Sahrier Adil</h1>
+          <h3>A Biotech Researcher</h3>
+          <p class="intro">I’m someone who’s really curious about the world of science...</p>
+
+          <!-- Buttons -->
+          <div class="cta">
+            <button class="cta-1" type="button">CV</button>
+            <button class="cta-2" type="button">Contact</button>
+          </div>
+
+          <!-- Tabs -->
+          <nav id="quick-links" class="quick-links" role="tablist" aria-label="Sections">
+            <a id="tab-research-experience" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="research-experience">Research Experience</a>
+            <a id="tab-conferences" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="conferences">Conferences</a>
+            <a id="tab-projects" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="projects">Projects</a>
+            <a id="tab-field-works" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="field-works">Field Works</a>
+            <a id="tab-education" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="education">Education</a>
+            <a id="tab-beyond-academics" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="beyond-academics">Beyond Academics</a>
+          </nav>
+        </div>
+
+        <div class="hero-right">
+          <img src="your-photo.jpg" alt="Sahrier Adil working at a computer" class="profile-pic" />
+        </div>
+      </div>
+    </section>
+
+    <!-- Tab content -->
+    <section class="tab-content" id="tab-content" aria-live="polite">
+      <div id="research-experience" class="tab-pane" role="tabpanel" hidden>
+        <h2>Research Experience</h2>
+        <ul><li>Isolation of enzyme-producing <i>Aspergillus</i></li><li>Fermentation for amylase production</li><li>Metagenomic analysis of ARGs</li><li>Protein purification in <i>E. coli</i></li></ul>
+      </div>
+      <div id="conferences" class="tab-pane" role="tabpanel" hidden>
+        <h2>Conferences</h2>
+        <ul><li>Microbial Biotechnology Poster</li><li>Bioinformatics Summit Talk</li><li>CRISPR Congress Participation</li><li>Industrial Biotech Panel</li></ul>
+      </div>
+      <div id="projects" class="tab-pane" role="tabpanel" hidden>
+        <h2>Projects</h2>
+        <ul><li>Designer cellulosomes</li><li>Salt tolerance in rice</li><li>Hydrolase discovery</li><li>Methane reduction markers</li></ul>
+      </div>
+      <div id="field-works" class="tab-pane" role="tabpanel" hidden>
+        <h2>Field Works</h2>
+        <ul><li>Soil sampling</li><li>Substrate collection</li><li>Microbiome survey</li><li>Farm diversity profiling</li></ul>
+      </div>
+      <div id="education" class="tab-pane" role="tabpanel" hidden>
+        <h2>Education</h2>
+        <ul><li>B.Sc. in Biotechnology</li><li>Coursework: Molecular Biology...</li><li>Lab: PCR, assays</li><li>Computational: R, Python</li></ul>
+      </div>
+      <div id="beyond-academics" class="tab-pane" role="tabpanel" hidden>
+        <h2>Beyond Academics</h2>
+        <ul><li>Science communication</li><li>Seminar organizer</li><li>Hackathons</li><li>Blogging</li></ul>
+      </div>
+    </section>
+
+    <!-- Social icons -->
+    <aside class="social-icon" aria-label="Social links">
+      <a class="social-link" href="#"><img src="assets/icons/linkedin.png" alt="LinkedIn" /></a>
+      <a class="social-link" href="#"><img src="assets/icons/facebook.png" alt="Facebook" /></a>
+      <a class="social-link" href="#"><img src="assets/icons/instagram.png" alt="Instagram" /></a>
+      <a class="social-link" href="#"><img src="assets/icons/twitter.png" alt="Twitter" /></a>
+      <a class="social-link" href="#"><img src="assets/icons/whatsapp.png" alt="WhatsApp" /></a>
+    </aside>
+  </main>
+
+  <!-- Inline JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      setupTabs();
+      setupCTAs();
+    });
+
+    function setupTabs() {
+      const tabList   = document.getElementById('quick-links');
+      const tabs      = tabList ? tabList.querySelectorAll('.nav-item[role="tab"]') : [];
+      const container = document.getElementById('tab-content');
+      const panes     = container ? container.querySelectorAll('.tab-pane') : [];
+      if (!tabList || !container || tabs.length === 0 || panes.length === 0) return;
+
+      let locked = null;
+      const hideAll = () => {
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        panes.forEach(p => { p.hidden = true; });
+        container.classList.remove('active');
+      };
+      const show = (tab) => {
+        const id = tab.dataset.tab;
+        const pane = id ? document.getElementById(id) : null;
+        if (!pane) return;
+        tabs.forEach(t => { t.classList.remove('active'); t.setAttribute('aria-selected','false'); });
+        panes.forEach(p => { p.hidden = true; });
+        tab.classList.add('active');
+        tab.setAttribute('aria-selected','true');
+        pane.hidden = false;
+        container.classList.add('active');
+      };
+
+      tabs.forEach(tab => {
+        tab.addEventListener('keydown', e => { if (e.key==='Enter'||e.key===' '){e.preventDefault();tab.click();}});
+        tab.addEventListener('mouseover', () => { if (!locked) show(tab); });
+        tab.addEventListener('mouseleave', () => { if (!locked) hideAll(); });
+        tab.addEventListener('click', e => {
+          e.preventDefault();
+          if (locked===tab){locked=null;hideAll();} else {locked=tab;show(tab);}
+        });
+      });
+      hideAll();
+    }
+
+    function setupCTAs() {
+      const cvBtn = document.querySelector('.cta-1');
+      const contactBtn = document.querySelector('.cta-2');
+      if (cvBtn) cvBtn.addEventListener('click',()=>{console.log('TODO: hook up CV');});
+      if (contactBtn) contactBtn.addEventListener('click',()=>{console.log('TODO: hook up Contact');});
+    }
+
+    window.addEventListener('error', (e)=>{console.error('JavaScript Error:', e.message);});
+  </script>
+</body>
+</html>

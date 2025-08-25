@@ -1,138 +1,137 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE html> <!-- Tells browser this is an HTML5 document -->
+<html lang="en"> <!-- Opens the HTML document and sets language to English -->
 
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Sahrier Adil</title>
+<head> <!-- Metadata section (not shown on the page) -->
+  <meta charset="utf-8" /> <!-- Sets character encoding (supports all characters) -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" /> <!-- Makes site responsive to screen size -->
+  <title>Sahrier Adil – Biotech Researcher</title> <!-- Title shown in browser tab -->
 
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;800&display=swap" rel="stylesheet">
+  <!-- Loads Google Font "Inter" with weights (300, 500, 600, 800) -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;600;800&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="styles.css">
+  <!-- Links to external stylesheet for design -->
+  <link rel="stylesheet" href="styles.css" />
 </head>
 
-<body>
-  <header id="header">
-    <div class="left-section"></div>
-  </header>
+<body> <!-- Main visible body content starts here -->
 
-  <main>
+  <main> <!-- Wrapper for the main content -->
+
+    <!-- HERO SECTION: intro text + profile picture -->
     <section id="hero">
-      <div class="hero-left">
-        <div class="content">
-          <img src="your-photo.jpg" alt="Sahrier Adil" class="profile-pic">
-          <h1>Hi, I'm Sahrier Adil</h1>
-          <h3>A Biotech Researcher</h3>
+      <div class="hero-main"> <!-- Flex container to place text & image side-by-side -->
 
+        <!-- LEFT SIDE: Textual intro -->
+        <div class="hero-left">
+          <h1>Hi, I'm Sahrier Adil</h1> <!-- Big heading -->
+          <h3>A Biotech Researcher</h3> <!-- Subheading -->
+
+          <!-- Short intro paragraph -->
           <p class="intro">
-            I’m someone who’s really curious about the world of science, especially microbiology, molecular biology and
-            bioinformatics. I enjoy exploring how microbes work, how genes influence life and how technology can help us
-            understand biology better. I’m always excited to learn new things and connect ideas between lab work and computational tools.
+            I’m someone who’s really curious about the world of science...
           </p>
 
+          <!-- Call to Action buttons (CV & Contact) -->
           <div class="cta">
-            <button class="cta-1">CV</button>
-            <button class="cta-2">Contact</button>
+            <button class="cta-1" type="button">CV</button> <!-- Blue filled button -->
+            <button class="cta-2" type="button">Contact</button> <!-- Blue outlined button -->
           </div>
 
-          <!-- Quick Links (tabs) -->
-          <section id="quick-links" class="quick-links" aria-label="Quick links">
-            <a class="nav-item" href="#" data-tab="research-experience">Research Experience</a>
-            <a class="nav-item" href="#" data-tab="conferences">Conferences</a>
-            <a class="nav-item" href="#" data-tab="projects">Projects</a>
-            <a class="nav-item" href="#" data-tab="field-works">Field Works</a>
-            <a class="nav-item" href="#" data-tab="education">Education</a>
-            <a class="nav-item" href="#" data-tab="beyond-academics">Beyond Academics</a>
-          </section>
+          <!-- TAB BUTTONS (Quick links to content below) -->
+          <nav id="quick-links" class="quick-links" role="tablist" aria-label="Sections">
+            <!-- Each link is a "tab" that shows its related content below -->
+            <a id="tab-research-experience" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="research-experience">Research Experience</a>
+            <a id="tab-conferences" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="conferences">Conferences</a>
+            <a id="tab-projects" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="projects">Projects</a>
+            <a id="tab-field-works" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="field-works">Field Works</a>
+            <a id="tab-education" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="education">Education</a>
+            <a id="tab-beyond-academics" class="nav-item" href="#" role="tab" aria-selected="false" data-tab="beyond-academics">Beyond Academics</a>
+          </nav>
+        </div>
 
-          <!-- Tab panes -->
-          <div class="tab-content" id="tab-content" role="region" aria-live="polite">
-            <div id="research-experience" class="tab-pane" role="tabpanel" aria-labelledby="tab-research-experience">
-              <h2>Research Experience</h2>
-              <ul>
-                <li>Isolation & characterization of enzyme-producing <i>Aspergillus</i> from agro-residues</li>
-                <li>Solid-state vs submerged fermentation for amylase production</li>
-                <li>Metagenomic analysis of antibiotic resistance genes (ARGs)</li>
-                <li>Expression & purification of recombinant proteins in <i>E. coli</i></li>
-              </ul>
-            </div>
-
-            <div id="conferences" class="tab-pane" role="tabpanel" aria-labelledby="tab-conferences">
-              <h2>Conferences</h2>
-              <ul>
-                <li>Advances in Microbial Biotechnology — Poster on hydrolase production</li>
-                <li>Genomics & Bioinformatics Summit — Talk on metagenome mining</li>
-                <li>International Molecular Biology Congress — CRISPR/Gene editing sessions</li>
-                <li>Industrial Biotech for Agriculture — Enzymes in waste valorization panel</li>
-              </ul>
-            </div>
-
-            <div id="projects" class="tab-pane" role="tabpanel" aria-labelledby="tab-projects">
-              <h2>Projects</h2>
-              <ul>
-                <li>Designer cellulosomes for enhanced cellulose degradation</li>
-                <li>SA-mediated salt/cadmium stress tolerance in rice</li>
-                <li>Discovery of novel hydrolases from polluted-site metagenomes</li>
-                <li>Genetic markers for lowering enteric methane in cattle</li>
-              </ul>
-            </div>
-
-            <div id="field-works" class="tab-pane" role="tabpanel" aria-labelledby="tab-field-works">
-              <h2>Field Works</h2>
-              <ul>
-                <li>Soil sampling for filamentous fungi from rice fields</li>
-                <li>Collection of rice husk & bagasse for SSF substrates</li>
-                <li>Urban vs rural water microbiome survey</li>
-                <li>Microbial diversity profiling in poultry/livestock farms</li>
-              </ul>
-            </div>
-
-            <div id="education" class="tab-pane" role="tabpanel" aria-labelledby="tab-education">
-              <h2>Education</h2>
-              <ul>
-                <li>B.Sc. in Genetic Engineering & Biotechnology (4th year)</li>
-                <li>Coursework: Molecular Biology, Biochemistry, Bioinformatics, Industrial Microbiology</li>
-                <li>Lab: Enzyme assays, PCR, gel electrophoresis, fermentation</li>
-                <li>Computational: R (phyloseq, ggplot2), Python (pandas, Biopython)</li>
-              </ul>
-            </div>
-
-            <div id="beyond-academics" class="tab-pane" role="tabpanel" aria-labelledby="tab-beyond-academics">
-              <h2>Beyond Academics</h2>
-              <ul>
-                <li>Science communication workshops & outreach</li>
-                <li>Organized campus biotechnology seminar series</li>
-                <li>Bioinformatics hackathons & tool prototyping</li>
-                <li>Science blogging on genetics & microbiology</li>
-              </ul>
-            </div>
-          </div>
-
-          <!-- Social Icons -->
-          <div class="social-icon" aria-label="Social links">
-            <a class="social-link linkedin" href="#" title="LinkedIn">
-              <img src="assets/icons/linkedin.png" alt="LinkedIn">
-            </a>
-            <a class="social-link facebook" href="#" title="Facebook">
-              <img src="assets/icons/facebook.png" alt="Facebook">
-            </a>
-            <a class="social-link instagram" href="#" title="Instagram">
-              <img src="assets/icons/instagram.png" alt="Instagram">
-            </a>
-            <a class="social-link twitter" href="#" title="Twitter">
-              <img src="assets/icons/twitter.png" alt="Twitter">
-            </a>
-            <a class="social-link whatsapp" href="#" title="WhatsApp">
-              <img src="assets/icons/whatsapp.png" alt="WhatsApp">
-            </a>
-          </div>
+        <!-- RIGHT SIDE: Profile picture -->
+        <div class="hero-right">
+          <!-- Circular profile photo -->
+          <img src="your-photo.jpg" alt="Sahrier Adil working at a computer" class="profile-pic" />
         </div>
       </div>
     </section>
+
+    <!-- TAB CONTENT SECTION: appears when clicking links above -->
+    <section class="tab-content" id="tab-content" aria-live="polite">
+      <!-- Each div below is a "pane" connected to one tab above -->
+      <div id="research-experience" class="tab-pane" role="tabpanel" aria-labelledby="tab-research-experience" hidden>
+        <h2>Research Experience</h2>
+        <ul>
+          <li>Isolation & characterization of enzyme-producing <i>Aspergillus</i></li>
+          <li>Solid-state vs submerged fermentation for amylase production</li>
+          <li>Metagenomic analysis of antibiotic resistance genes (ARGs)</li>
+          <li>Expression & purification of recombinant proteins in <i>E. coli</i></li>
+        </ul>
+      </div>
+
+      <div id="conferences" class="tab-pane" role="tabpanel" aria-labelledby="tab-conferences" hidden>
+        <h2>Conferences</h2>
+        <ul>
+          <li>Advances in Microbial Biotechnology — Poster presentation</li>
+          <li>Genomics & Bioinformatics Summit — Talk on metagenome mining</li>
+          <li>International Molecular Biology Congress — CRISPR sessions</li>
+          <li>Industrial Biotech for Agriculture — Enzyme panel</li>
+        </ul>
+      </div>
+
+      <div id="projects" class="tab-pane" role="tabpanel" aria-labelledby="tab-projects" hidden>
+        <h2>Projects</h2>
+        <ul>
+          <li>Designer cellulosomes for cellulose degradation</li>
+          <li>SA-mediated stress tolerance in rice</li>
+          <li>Hydrolase discovery from polluted sites</li>
+          <li>Markers for lowering methane in cattle</li>
+        </ul>
+      </div>
+
+      <div id="field-works" class="tab-pane" role="tabpanel" aria-labelledby="tab-field-works" hidden>
+        <h2>Field Works</h2>
+        <ul>
+          <li>Soil sampling for fungi</li>
+          <li>Collection of rice husk for SSF substrates</li>
+          <li>Urban vs rural microbiome survey</li>
+          <li>Livestock microbial diversity profiling</li>
+        </ul>
+      </div>
+
+      <div id="education" class="tab-pane" role="tabpanel" aria-labelledby="tab-education" hidden>
+        <h2>Education</h2>
+        <ul>
+          <li>B.Sc. in Genetic Engineering & Biotechnology</li>
+          <li>Coursework: Molecular Biology, Bioinformatics...</li>
+          <li>Lab skills: PCR, enzyme assays, fermentation</li>
+          <li>Computational: R, Python</li>
+        </ul>
+      </div>
+
+      <div id="beyond-academics" class="tab-pane" role="tabpanel" aria-labelledby="tab-beyond-academics" hidden>
+        <h2>Beyond Academics</h2>
+        <ul>
+          <li>Science communication & outreach</li>
+          <li>Organized biotech seminars</li>
+          <li>Bioinformatics hackathons</li>
+          <li>Science blogging</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- Social Media Icons (optional, fixed on right side) -->
+    <aside class="social-icon" aria-label="Social links">
+      <a class="social-link" href="#" title="LinkedIn"><img src="assets/icons/linkedin.png" alt="LinkedIn" /></a>
+      <a class="social-link" href="#" title="Facebook"><img src="assets/icons/facebook.png" alt="Facebook" /></a>
+      <a class="social-link" href="#" title="Instagram"><img src="assets/icons/instagram.png" alt="Instagram" /></a>
+      <a class="social-link" href="#" title="Twitter"><img src="assets/icons/twitter.png" alt="Twitter" /></a>
+      <a class="social-link" href="#" title="WhatsApp"><img src="assets/icons/whatsapp.png" alt="WhatsApp" /></a>
+    </aside>
   </main>
 
+  <!-- JavaScript file for tab behavior -->
   <script src="script.js"></script>
 </body>
 </html>
