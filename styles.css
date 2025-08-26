@@ -1,348 +1,333 @@
-/* Reset all default browser styles for consistency */
-* { margin: 0; padding: 0; box-sizing: border-box; text-decoration: none; }
+/* ======================== */
+/* Global Reset + Variables */
+/* ======================== */
+* {
+  margin: 0;                     /* Remove default margin from all elements */
+  padding: 0;                    /* Remove default padding from all elements */
+  box-sizing: border-box;        /* Include border + padding in element width/height */
+  text-decoration: none;         /* Remove underlines from links */
+}
 
-/* Root defines reusable CSS variables (theme colors) */
 :root {
-  --accent: #003366;       /* Main dark navy blue */
-  --accent-hover: #1E88E5; /* Lighter biotech blue when hovered */
-  --text-main: #2b2b2b;    /* Standard dark text color */
-  --panel: #f8f9fa;        /* Light gray background for tab panels */
+  --accent: #003366;             /* Dark blue primary color */
+  --accent-hover: #1E88E5;       /* Lighter blue for hover/active */
+  --text-main: #2b2b2b;          /* Main text color */
+  --panel: #f8f9fa;              /* Background for content panels */
 }
 
-/* ======= BACKGROUND & BASE TYPOGRAPHY ======= */
-
-/* Entire HTML background */
-html {
-  background: url('background-img.jpg') center/cover no-repeat fixed; /* Sets your image full screen & fixed */
-  min-height: 100%;            /* Ensure it always covers the height */
-  animation: bgZoom 3s ease-in forwards; /* Smooth zoom animation when loaded */
+/* ======================== */
+/* Background + Overlay     */
+/* ======================== */
+html, body {
+  height: 100%;                  /* Ensure page fills full viewport height */
+  margin: 0;                     /* Remove default spacing */
+  padding: 0;                    /* Remove default spacing */
 }
 
-/* Body text & spacing */
 body {
-  font-family: 'Inter', sans-serif; /* Sets font from Google */
-  color: var(--text-main);          /* Uses theme text color */
-  background: transparent;          /* Transparent so background image shows */
-  padding: 40px 10%;                /* Adds spacing around content (40px top/bottom, 10% left/right) */
+  min-height: 100vh;             /* Body always at least full screen height */
+  background: url('background-img.jpg') no-repeat center center; /* Background image centered */
+  background-size: cover;        /* Cover entire screen */
+  background-attachment: fixed;  /* Parallax effect on desktop */
+  position: relative;            /* Anchor overlay and content */
+  display: flex;                 /* Allow vertical layout */
+  flex-direction: column;        /* Stack children top → bottom */
+  font-family: 'Inter', sans-serif; /* Set clean font */
+  color: var(--text-main);       /* Default text color */
+  background-color: transparent; /* Transparent so overlay shows */
+  padding: 40px 10%;             /* Side padding */
+  overflow-y: scroll;            /* Always allow vertical scrolling */
+  scrollbar-width: none;         /* Hide scrollbar in Firefox */
 }
 
-/* ======= HERO SECTION (INTRO + PHOTO) ======= */
-
-/* Container for the whole intro area */
-#hero { 
-  display: flex;              /* Enables flexbox layout */
-  flex-direction: column;     /* Stacks hero-main vertically */
-  gap: 30px;                  /* Space between items inside hero */
+body::-webkit-scrollbar {
+  display: none;                 /* Hide scrollbar in Chrome/Safari */
 }
 
-/* Row inside hero: text left + image right */
+/* Dark overlay (sits on top of background, behind content) */
+body::before {
+  content: "";                   /* Empty element */
+  position: fixed;               /* Fixed to viewport */
+  top: 0;                        /* Start top edge */
+  left: 0;                       /* Start left edge */
+  width: 100%;                   /* Full width */
+  height: 100%;                  /* Full height */
+  background: rgba(0,0,0,0.4);   /* Semi-transparent black */
+  z-index: 0;                    /* Behind main content */
+}
+
+/* Keep content above overlay */
+main {
+  position: relative;            /* Ensure it sits above overlay */
+  z-index: 1;                    /* On top of overlay */
+  flex: 1;                       /* Fill remaining vertical space */
+}
+
+/* ======================== */
+/* Hero Section             */
+/* ======================== */
+#hero {
+  display: flex;                 /* Stack hero and its children */
+  flex-direction: column;        /* Column layout */
+  gap: 30px;                     /* Space between elements */
+}
+
 .hero-main {
-  display: flex;                          /* Flexbox for 2-column layout */
-  align-items: center;                    /* Vertically centers items */
-  justify-content: space-between;         /* Pushes text left, image right */
-  gap: 40px;                              /* Space between text and image */
+  display: flex;                 /* Side-by-side layout for text + pic */
+  align-items: center;           /* Vertically center items */
+  justify-content: space-between;/* Push left text and right pic apart */
+  gap: 40px;                     /* Space between text and picture */
 }
 
-/* Left column (text intro) grows to fill available space */
-.hero-left { flex: 1; }
+.hero-left {
+  flex: 1;                       /* Text side grows to fill space */
+}
 
-/* Right column (photo) does not grow/shrink */
-.hero-right { flex-shrink: 0; }
+.hero-right {
+  flex-shrink: 0;                /* Prevent picture from shrinking */
+}
 
-/* Big heading style */
 h1 {
-  font-size: 3rem;                         /* Very large font */
-  font-weight: 800;                        /* Boldest weight */
-  margin-bottom: 10px;                     /* Space below */
-  text-shadow: 0 6px 18px rgba(2,6,23,.18);/* Subtle shadow */
+  font-size: 3rem;               /* Large title */
+  font-weight: 800;              /* Extra bold */
+  margin-bottom: 10px;           /* Space below */
+  text-shadow: 0 6px 18px rgba(2,6,23,.18); /* Shadow for readability */
 }
 
-/* Subheading style */
 h3 {
-  font-size: 2rem;                         /* Slightly smaller */
-  font-weight: 800;                        /* Very bold */
-  color: #FF6A00;                          /* Orange color */
-  margin-bottom: 18px;                     /* Space below */
-  text-shadow: 0 4px 10px rgba(0,0,0,.12); /* Small shadow */
+  font-size: 2rem;               /* Subtitle size */
+  font-weight: 800;              /* Bold */
+  color: #FF6A00;                /* Orange color */
+  margin-bottom: 18px;           /* Space below */
+  text-shadow: 0 4px 10px rgba(0,0,0,.12); /* Light shadow */
 }
 
-/* Intro paragraph style */
 .intro {
-  font-size: 1.05rem;                      /* Slightly larger text */
-  line-height: 1.65;                       /* More readable spacing */
-  margin-bottom: 24px;                     /* Space after paragraph */
-  text-align: justify;                     /* Evenly align left + right */
-  text-justify: inter-word;                /* Adjust spaces between words */
-  max-width: 720px;                        /* Prevents too wide lines */
-  text-shadow: 0 2px 6px rgba(2,6,23,.06); /* Very subtle text shadow */
+  font-size: 1.05rem;            /* Readable text */
+  line-height: 1.65;             /* Space between lines */
+  margin-bottom: 24px;           /* Space below */
+  text-align: justify;           /* Justify text */
+  max-width: 720px;              /* Limit width for readability */
 }
 
-/* ======= CALL TO ACTION (CV + Contact) ======= */
+/* ======================== */
+/* CTA Buttons              */
+/* ======================== */
+.cta {
+  margin-bottom: 24px;           /* Space below */
+}
 
-/* CTA wrapper spacing */
-.cta { margin-bottom: 24px; }
-
-/* Generic button styles */
 .cta button {
-  font-size: 1.05rem;                      /* Slightly larger font */
-  font-weight: 700;                        /* Bold */
-  padding: 12px 0;                         /* Vertical padding */
-  width: 180px;                            /* Fixed button width */
-  border-radius: 10px;                     /* Rounded corners */
-  cursor: pointer;                         /* Shows hand cursor */
-  transition: all .18s ease;               /* Smooth hover transition */
-  border: 2px solid var(--accent-hover);   /* Outline with theme color */
-  margin-right: 12px;                      /* Space between buttons */
+  font-size: 1.05rem;            /* Font size */
+  font-weight: 700;              /* Bold */
+  padding: 12px 0;               /* Vertical padding */
+  width: 180px;                  /* Fixed button width */
+  border-radius: 10px;           /* Rounded corners */
+  cursor: pointer;               /* Pointer cursor */
+  transition: all .18s ease;     /* Smooth hover transition */
+  border: 2px solid var(--accent-hover); /* Border */
+  margin-right: 12px;            /* Space between buttons */
 }
 
-/* CV button (filled blue) */
-.cta .cta-1 { background: var(--accent-hover); color: #fff; }
-
-/* Hover effect for CV button (turns outline) */
-.cta .cta-1:hover { background: transparent; color: var(--accent-hover); }
-
-/* Contact button (outline blue) */
-.cta .cta-2 { background: transparent; color: var(--accent-hover); }
-
-/* Hover effect for Contact (turns filled) */
-.cta .cta-2:hover { background: var(--accent-hover); color: #fff; }
-
-/* ======= TABS (Quick Links under intro) ======= */
-
-/* Tab container layout */
-.quick-links { 
-  display: flex;              /* Horizontal row */
-  gap: 12px;                  /* Space between buttons */
-  flex-wrap: wrap;            /* Allow wrapping on small screens */
-  margin-top: 60px;    /* 👈 Pushes the tab row lower */
-  margin-bottom: 8px;         /* Space below tabs */
+.cta .cta-1 {
+  background: var(--accent-hover); /* Blue background */
+  color: #fff;                     /* White text */
+}
+.cta .cta-1:hover {
+  background: transparent;          /* Transparent background */
+  color: var(--accent-hover);       /* Blue text */
+}
+.cta .cta-2 {
+  background: transparent;          /* Transparent background */
+  color: var(--accent-hover);       /* Blue text */
+}
+.cta .cta-2:hover {
+  background: var(--accent-hover);  /* Blue background */
+  color: #fff;                      /* White text */
 }
 
-/* Each tab button */
+/* ======================== */
+/* Tabs (Quick Links)       */
+/* ======================== */
+.quick-links {
+  display: flex;                   /* Horizontal row */
+  gap: 12px;                       /* Space between tabs */
+  flex-wrap: wrap;                 /* Wrap if too many */
+  margin-top: 40px;                /* Space above tabs */
+  margin-bottom: 8px;              /* Space below tabs */
+}
+
 .quick-links .nav-item {
-  padding: 10px 18px;                         /* Inside spacing */
-  border-radius: 999px;                       /* Pill shape */
-  background: var(--accent);                  /* Dark blue background */
-  border: 2px solid var(--accent);            /* Border same color */
-  color: #fff;                                /* White text */
-  font-size: .98rem;                          /* Slightly small font */
-  font-weight: 700;                           /* Bold text */
-  white-space: nowrap;                        /* Prevent line breaks */
-  transition: all .18s ease;                  /* Smooth hover animation */
+  padding: 10px 18px;              /* Inner spacing */
+  border-radius: 999px;            /* Pill shape */
+  background: var(--accent);       /* Blue background */
+  border: 2px solid var(--accent); /* Border same as bg */
+  color: #fff;                     /* White text */
+  font-size: .98rem;               /* Slightly smaller text */
+  font-weight: 700;                /* Bold */
+  white-space: nowrap;             /* Prevent text wrap */
+  transition: all .18s ease;       /* Smooth transitions */
 }
 
-/* Hover/active tab style */
-.quick-links .nav-item:hover,
 .quick-links .nav-item.active {
-  background: var(--accent-hover);            /* Lighter blue */
-  border-color: var(--accent-hover);          /* Border matches */
-  box-shadow: 0 4px 12px rgba(30,136,229,.35);/* Glow effect */
-  transform: translateY(-2px);                /* Moves up slightly */
+  background: var(--accent-hover); /* Lighter blue */
+  border-color: var(--accent-hover);
+  box-shadow: 0 4px 12px rgba(30,136,229,.35); /* Glow */
+  transform: translateY(-2px);    /* Slight lift */
 }
 
-/* ======= TAB PANELS (Content displayed on click) ======= */
-
-/* Tab content container (hidden initially) */
+/* ======================== */
+/* Tab Content              */
+/* ======================== */
 .tab-content {
-  display: none;                              /* Hidden until tab clicked */
-  margin: 28px 0 0;                           /* Margin above */
-  padding: 20px 22px;                         /* Inside spacing */
-  min-height: 220px;                          /* Fixed height to reduce jump */
-  background: var(--panel);                   /* Light gray card */
-  border-radius: 14px;                        /* Rounded corners */
-  box-shadow: 0 6px 18px rgba(0,0,0,.08);     /* Soft shadow */
+  display: none;                   /* Hidden by default */
+  margin: 28px 0 0;                /* Space above */
+  padding: 20px 22px;              /* Inner padding */
+  min-height: 220px;               /* Keep height consistent */
+  background: var(--panel);        /* Light panel background */
+  border-radius: 14px;             /* Rounded corners */
+  box-shadow: 0 6px 18px rgba(0,0,0,.08); /* Shadow */
 }
 
-/* Active tab content (when visible) */
-.tab-content.active { display: block; }
+.tab-content.active {
+  display: block;                  /* Show when active */
+}
 
-/* Hide individual pane when marked hidden */
-.tab-pane[hidden] { display: none; }
+.tab-pane[hidden] {
+  display: none;                   /* Hidden tab panels */
+}
 
-/* Title inside each tab */
 .tab-pane h2 {
-  font-size: 1.3rem;                          /* Slightly large font */
-  margin-bottom: 12px;                        /* Space below */
-  color: var(--accent);                       /* Dark blue text */
-  font-weight: 800;                           /* Bold */
+  font-size: 1.3rem;               /* Heading size */
+  margin-bottom: 12px;             /* Space below */
+  color: var(--accent);            /* Blue */
+  font-weight: 800;                /* Bold */
 }
 
-/* List inside tabs */
-.tab-pane ul { 
-  list-style: disc;                           /* Bullet points */
-  padding-left: 20px;                         /* Indent bullets */
-  line-height: 1.7;                           /* Spacing between lines */
+.tab-pane ul {
+  list-style: disc;                /* Bullets */
+  padding-left: 20px;              /* Indent */
+  line-height: 1.7;                /* Spacing */
 }
 
-/* ======= PROFILE PICTURE ======= */
-
+/* ======================== */
+/* Profile Picture          */
+/* ======================== */
 .profile-pic {
-  width: 300px;                               /* Size of circle */
-  height: 300px;
-  border-radius: 50%;                         /* Makes it circular */
-  object-fit: cover;                          /* Keeps aspect ratio, fills circle */
-  box-shadow: 0 10px 30px rgba(0,0,0,.20);    /* Adds soft shadow */
-  transform: scaleX(-1); /* Flips the image left to right */
+  width: 300px;                    /* Width */
+  height: 300px;                   /* Height */
+  border-radius: 50%;              /* Circle shape */
+  object-fit: cover;               /* Crop image */
+  box-shadow: 0 10px 30px rgba(0,0,0,.20); /* Shadow */
+  transform: scaleX(-1);           /* Flip horizontally */
 }
 
-/* ======= SOCIAL ICONS (right side floating) ======= */
-
+/* ======================== */
+/* Social Media Icons       */
+/* ======================== */
 .social-icon {
-  position: fixed;       /* Sticks to screen */
-  bottom: 20px;          /* At bottom */
-  right: 20px;           /* 20px from right */
-  display: flex;         /* Row of icons */
-  flex-direction: row;   /* Horizontal instead of vertical */
-  gap: 12px;             /* Space between icons */
-  z-index: 10;           /* On top of content */
+  position: fixed;                 /* Always visible */
+  bottom: 20px;                    /* Stick to bottom */
+  right: 20px;                     /* Align right */
+  display: flex;                   /* Flex layout */
+  flex-direction: column;          /* Vertical icons */
+  gap: 12px;                       /* Space between */
+  z-index: 10;                     /* On top */
 }
 
-/* Fade-in animation for icons */
-@keyframes fadeIcons {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+.social-link {
+  width: 44px;                     /* Circle size */
+  height: 44px;
+  display: grid;                   /* Center image */
+  place-items: center;
+  border-radius: 50%;              /* Circle */
+  background: rgba(255,255,255,.6);/* Glassy background */
+  backdrop-filter: blur(4px);      /* Blur effect */
+  opacity: 0;                      /* Start hidden */
+  animation: iconFadeUp 0.6s ease forwards; /* Fade-in animation */
 }
 
-/* Each social icon button */
-.social-icon {
-  position: fixed;        /* Sticks to screen */
-  bottom: 20px;           /* Always at bottom */
-  right: 20px;            /* 20px from right edge */
-  display: flex;          /* Flex container */
-  flex-direction: column; /* 👈 Vertical layout */
-  gap: 12px;              /* Space between icons */
-  z-index: 10;            /* Stay above everything */
+.social-link img {
+  width: 26px;                     /* Icon size */
+  height: 26px;
+  object-fit: contain;             /* Keep aspect */
 }
 
+/* Stagger animation delays */
+.social-link:nth-child(1) { animation-delay: 0.2s; }
+.social-link:nth-child(2) { animation-delay: 0.4s; }
+.social-link:nth-child(3) { animation-delay: 0.6s; }
+.social-link:nth-child(4) { animation-delay: 0.8s; }
+.social-link:nth-child(5) { animation-delay: 1s; }
 
-/* Hover effect for social icon */
-.social-link:hover { 
-  transform: translateX(-6px) scale(1.03);    /* Moves left & slightly bigger */
-  opacity: .95;                               /* Slightly more solid */
-}
-
-/* Social icon image */
-.social-link img { 
-  width: 26px; height: 26px;                  /* Icon size */
-  object-fit: contain;                        /* Fit properly inside */
-}
-/* Animation for social icons */
+/* ======================== */
+/* Animations               */
+/* ======================== */
 @keyframes iconFadeUp {
   from {
-    opacity: 0;           /* Invisible */
-    transform: translateY(20px); /* Start slightly lower */
+    opacity: 0;                    /* Invisible */
+    transform: translateY(20px);   /* Start lower */
   }
   to {
-    opacity: 1;           /* Fully visible */
-    transform: translateY(0);   /* Normal position */
+    opacity: 1;                    /* Visible */
+    transform: translateY(0);      /* Normal position */
   }
 }
 
-/* Apply animation to each social icon */
-.social-icon .social-link {
-  opacity: 0;                   /* Start hidden */
-  animation: iconFadeUp 0.6s ease forwards;
-}
-
-/* Delay each icon slightly for staggered effect */
-.social-icon .social-link:nth-child(1) { animation-delay: 0.2s; }
-.social-icon .social-link:nth-child(2) { animation-delay: 0.4s; }
-.social-icon .social-link:nth-child(3) { animation-delay: 0.6s; }
-.social-icon .social-link:nth-child(4) { animation-delay: 0.8s; }
-.social-icon .social-link:nth-child(5) { animation-delay: 1s; }
-
-/* ======= ANIMATIONS ======= */
-
-/* Zoom effect for background */
-@keyframes bgZoom { 
-  from { background-size: 120%; }             /* Start zoomed in */
-  to { background-size: 100%; }               /* End normal */
-}
-
-/* Fade in effect (unused but available) */
-@keyframes fadeIn { 
-  from { transform: translateY(8px); opacity: 0; } /* Start lower + invisible */
-  to { transform: none; opacity: 1; }              /* End normal + visible */
-}
-
-/* ======= RESPONSIVE DESIGN ======= */
-
-/* For screens <= 900px (tablets, phones) */
+/* ======================== */
+/* Responsive Design        */
+/* ======================== */
 @media (max-width: 900px) {
-  body { padding: 28px 6%; }                  /* Less side padding */
-  .hero-main { flex-direction: column; text-align: center; } /* Stack text + photo */
-  .profile-pic { width: 220px; height: 220px; margin-top: 12px; } /* Smaller circle */
-  .social-icon { 
-    right: 8px; top: auto; bottom: 12px;      /* Move icons to bottom */
-    transform: none; flex-direction: row;     /* Arrange in a row */
+  .hero-main {
+    flex-direction: column-reverse; /* Profile pic above text */
+    text-align: center;
+  }
+
+  .profile-pic {
+    width: 200px;                  /* Smaller pic */
+    height: 200px;
+    margin-bottom: 20px;
+  }
+
+  body {
+    background-attachment: scroll; /* Prevent mobile issues */
   }
 }
-html, body {
-  overflow-y: scroll;   /* Always reserve space for vertical scrollbar */
-}
+
 @media (max-width: 600px) {
   body {
-    padding: 20px; /* Reduce side padding on small screens */
+    padding: 20px;                 /* Less padding */
   }
 
-  h1 { font-size: 2rem; }  /* Smaller heading */
+  h1 { font-size: 2rem; }          /* Smaller heading */
   h3 { font-size: 1.2rem; }
 
   .profile-pic {
-    width: 180px;   /* Smaller profile pic */
+    width: 180px;                  /* Smaller pic */
     height: 180px;
   }
 
   .quick-links {
-    flex-direction: column; /* Stack tabs vertically */
-    align-items: stretch;
+    flex-direction: column;        /* Stack tabs vertically */
+    align-items: center;
   }
 
   .quick-links .nav-item {
-    width: 100%; /* Full width buttons on mobile */
+    width: 100%;                   /* Full width buttons */
     text-align: center;
-  }
-}
-/* Hide scrollbar but still allow scrolling */
-html, body {
-  overflow-y: scroll;          /* Ensure layout doesn’t jump */
-  scrollbar-width: none;       /* Firefox */
-}
-
-body::-webkit-scrollbar {       /* Chrome, Safari */
-  display: none;
-}
-/* ===================== */
-/* 📱 Mobile Fixes       */
-/* ===================== */
-@media (max-width: 900px) {
-  /* Keep profile pic above text instead of dropping below */
-  .hero-main {
-    flex-direction: column-reverse;
-    text-align: center;
+    font-size: 0.85rem;            /* Smaller text */
+    padding: 8px 12px;             /* Less padding */
   }
 
-  /* Smaller profile picture on mobile */
-  .profile-pic {
-    width: 200px;
-    height: 200px;
-    margin-bottom: 20px;
-  }
-}
-
-@media (max-width: 600px) {
-  /* Background should always cover screen */
-  html {
-    background: url('background-img.jpg') center center / cover no-repeat;
+  .tab-content {
+    margin-top: 16px;              /* Show directly under tabs */
+    width: 100%;                   /* Fit screen width */
   }
 
-  body {
-    min-height: 100vh; /* Ensure body fills screen height */
-  }
-
-  /* Make tab buttons smaller on mobile */
-  .quick-links .nav-item {
-    font-size: 0.85rem;
-    padding: 8px 12px;
+  .social-icon {
+    bottom: 20px;                  /* Keep at bottom */
+    right: 10px;                   /* Closer edge */
+    flex-direction: row;           /* Show row on very small screens */
+    gap: 8px;
   }
 }
