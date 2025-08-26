@@ -13,8 +13,8 @@
 
 /* Entire HTML background */
 html {
-    min-height: 100%;            /* Ensure it always covers the height */
   background: url('background-img.jpg') center/cover no-repeat fixed; /* Sets your image full screen & fixed */
+  min-height: 100%;            /* Ensure it always covers the height */
   animation: bgZoom 3s ease-in forwards; /* Smooth zoom animation when loaded */
 }
 
@@ -24,7 +24,6 @@ body {
   color: var(--text-main);          /* Uses theme text color */
   background: transparent;          /* Transparent so background image shows */
   padding: 40px 10%;                /* Adds spacing around content (40px top/bottom, 10% left/right) */
-  min-height: 100vh;   /* ✅ Force body to always fill screen height */
 }
 
 /* ======= HERO SECTION (INTRO + PHOTO) ======= */
@@ -41,8 +40,6 @@ body {
   display: flex;                          /* Flexbox for 2-column layout */
   align-items: center;                    /* Vertically centers items */
   justify-content: space-between;         /* Pushes text left, image right */
-  flex-direction: column-reverse; /* ✅ Pic stays on top of text instead of bottom */
-  text-align: center;
   gap: 40px;                              /* Space between text and image */
 }
 
@@ -123,12 +120,12 @@ h3 {
 
 /* Each tab button */
 .quick-links .nav-item {
-  padding: 8px 12px;                         /* Inside spacing */
+  padding: 10px 18px;                         /* Inside spacing */
   border-radius: 999px;                       /* Pill shape */
   background: var(--accent);                  /* Dark blue background */
   border: 2px solid var(--accent);            /* Border same color */
   color: #fff;                                /* White text */
-  font-size: .85rem;                          /* Slightly small font */
+  font-size: .98rem;                          /* Slightly small font */
   font-weight: 700;                           /* Bold text */
   white-space: nowrap;                        /* Prevent line breaks */
   transition: all .18s ease;                  /* Smooth hover animation */
@@ -314,4 +311,38 @@ html, body {
 
 body::-webkit-scrollbar {       /* Chrome, Safari */
   display: none;
+}
+/* ===================== */
+/* 📱 Mobile Fixes       */
+/* ===================== */
+@media (max-width: 900px) {
+  /* Keep profile pic above text instead of dropping below */
+  .hero-main {
+    flex-direction: column-reverse;
+    text-align: center;
+  }
+
+  /* Smaller profile picture on mobile */
+  .profile-pic {
+    width: 200px;
+    height: 200px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 600px) {
+  /* Background should always cover screen */
+  html {
+    background: url('background-img.jpg') center center / cover no-repeat;
+  }
+
+  body {
+    min-height: 100vh; /* Ensure body fills screen height */
+  }
+
+  /* Make tab buttons smaller on mobile */
+  .quick-links .nav-item {
+    font-size: 0.85rem;
+    padding: 8px 12px;
+  }
 }
